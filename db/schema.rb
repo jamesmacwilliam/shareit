@@ -11,10 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303014758) do
+ActiveRecord::Schema.define(version: 20140306013054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: true do |t|
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "country"
+    t.string   "user_id"
+    t.boolean  "default"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "listings", force: true do |t|
+    t.datetime "listing_start"
+    t.datetime "listing_end"
+    t.string   "photos",        array: true
+    t.string   "rate"
+    t.string   "rate_type"
+    t.string   "deposit"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "geography_id"
+  end
 
   create_table "roles", force: true do |t|
     t.string   "name"
@@ -26,6 +50,19 @@ ActiveRecord::Schema.define(version: 20140303014758) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "taggings", force: true do |t|
+    t.string   "tag_id"
+    t.string   "listing_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tags", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

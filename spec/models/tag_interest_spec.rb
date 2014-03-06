@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe TagInterest do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context '.tags' do
+    it 'returns tags if they exist' do
+
+    end
+
+    it 'returns an empty array if they do not' do
+
+    end
+  end
 end

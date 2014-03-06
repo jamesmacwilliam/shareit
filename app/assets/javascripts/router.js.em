@@ -1,5 +1,5 @@
-# For more information see: http://emberjs.com/guides/routing/
-
 Shareit.Router.map ->
-  # @resource('posts')
+  @route 'new_listing', {path: '/listing/new'}
 
+  @resource 'listing', {path: '/listing/:listing_id'}, ->
+    @route 'edit'

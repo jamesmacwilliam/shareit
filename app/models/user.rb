@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
   rolify
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  has_many :listings
+  has_many :addresses
+  has_many :geographies
 
   class << self
     def find_for_facebook_oauth(auth, signed_in_resource=nil)

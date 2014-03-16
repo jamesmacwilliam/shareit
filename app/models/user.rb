@@ -19,4 +19,10 @@ class User < ActiveRecord::Base
         )
     end
   end
+
+  def as_json(opts={})
+    {
+      name: name
+    }
+  end
 end

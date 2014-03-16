@@ -11,35 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140306135030) do
+ActiveRecord::Schema.define(version: 20140314130355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "addresses", force: true do |t|
+  create_table "addresses", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "street"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
     t.string   "country"
-    t.string   "user_id"
+    t.uuid     "user_id"
     t.boolean  "default"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "geographies", force: true do |t|
-    t.string   "start_address_id"
-    t.string   "end_address_id"
+  create_table "geographies", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid     "start_address_id"
+    t.uuid     "end_address_id"
     t.string   "miles_to_travel"
     t.boolean  "willing_to_travel_across_state_line"
     t.string   "state_line_fee"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_id"
+    t.uuid     "user_id"
   end
 
-  create_table "listings", force: true do |t|
+  create_table "listings", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.datetime "listing_start"
     t.datetime "listing_end"
     t.string   "photos",        array: true
@@ -48,12 +49,12 @@ ActiveRecord::Schema.define(version: 20140306135030) do
     t.string   "deposit"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "geography_id"
+    t.uuid     "geography_id"
     t.string   "desc"
-    t.string   "user_id"
+    t.uuid     "user_id"
   end
 
-  create_table "roles", force: true do |t|
+  create_table "roles", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "name"
     t.integer  "resource_id"
     t.string   "resource_type"
@@ -64,39 +65,40 @@ ActiveRecord::Schema.define(version: 20140306135030) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
-  create_table "tag_interests", force: true do |t|
+  create_table "tag_interests", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "tag_ids",      array: true
-    t.string   "user_id"
-    t.string   "geography_id"
+    t.uuid     "user_id"
+    t.uuid     "geography_id"
     t.boolean  "default"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "desc"
   end
 
-  create_table "taggings", force: true do |t|
-    t.string   "tag_id"
-    t.string   "listing_id"
+  create_table "taggings", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid     "tag_id"
+    t.uuid     "listing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "tags", force: true do |t|
+  create_table "tags", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "usages", force: true do |t|
-    t.string   "listing_id"
+  create_table "usages", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid     "listing_id"
     t.string   "units"
-    t.string   "user_id"
+    t.uuid     "user_id"
     t.boolean  "completed"
     t.boolean  "paid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"

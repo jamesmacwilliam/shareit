@@ -1,5 +1,9 @@
 require 'spec_helper'
 
 describe Tag do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#as_json' do
+    it 'has correct attributes' do
+      expect(create(:tag).as_json.keys).to eq %i(id name created_at updated_at)
+    end
+  end
 end

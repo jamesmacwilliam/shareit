@@ -1,4 +1,5 @@
 class Listing < ActiveRecord::Base
+
   has_many :taggings
   has_many :tags, through: :taggings
   belongs_to :user
@@ -9,11 +10,11 @@ class Listing < ActiveRecord::Base
 
   RATE_TYPES = %w(hour minute mile fixed)
 
-  def as_json(opts = {})
+  def as_json_sub(opts = {})
     {
       id: id,
-      tags: tags,
-      geography: geography,
+      tags: tags.as_json(listing_id: id),
+      geography: geography.as_json(listing_id: id),
       listing_start: listing_start,
       listing_end: listing_end,
       photos: photos,
@@ -23,7 +24,7 @@ class Listing < ActiveRecord::Base
       created_at: created_at,
       updated_at: updated_at,
       desc: desc
-    }
+    }.merge(opts)
   end
 
   def tag_ids=(tag_ids)

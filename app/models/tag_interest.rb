@@ -1,15 +1,20 @@
 class TagInterest < ActiveRecord::Base
+
   belongs_to :user
   before_save :set_tag_ids
 
   def as_json(opts={})
-    {
-      tags: tags,
-      listings: listings,
+    json = {
+      id: id,
+      tags: tags.as_json(tag_interest_id: id),
+      listings_count: listings.size,
       created_at: created_at,
       updated_at: updated_at,
-      default: default
+      default: default,
+      desc: desc
     }
+    json[:listings] = listings.as_json(tag_interest_id: id)
+    json
   end
 
   def tags

@@ -76,6 +76,7 @@ FactoryGirl.define do
 
     user
     default false
+    desc { generate(:lorem) }
 
     trait :default do
       default true
@@ -83,9 +84,10 @@ FactoryGirl.define do
   end
 
   factory :listing do
-    before(:create) do |listing|
-      geo = create(:geography)
-      listing.user = geo.user
+    before(:create) do |listing, evaluator|
+      user = evaluator.user || create(:user)
+      geo = create(:geography, user: user)
+      listing.user = user
       listing.geography = geo
     end
 
@@ -93,6 +95,7 @@ FactoryGirl.define do
       tags []
       tags_count 1
       no_tags false
+      user
     end
 
     after(:create) do |listing, evaluator|
@@ -105,6 +108,7 @@ FactoryGirl.define do
 
     listing_start 1.day.ago
     listing_end 1.day.from_now
+    desc { generate(:lorem) }
     photos do
       Random.rand(10).times.map do
         Faker::Internet.url(Faker::Internet.domain_name, "/#{generate(:lorem)}.#{%w(jpg png gif).sample}")

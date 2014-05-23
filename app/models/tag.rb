@@ -1,4 +1,5 @@
 class Tag < ActiveRecord::Base
+
   has_many :taggings
   has_many :listings, through: :taggings
 
@@ -8,6 +9,6 @@ class Tag < ActiveRecord::Base
       name: name,
       created_at: created_at,
       updated_at: updated_at
-    }
+    }.merge(opts)
   end
 end

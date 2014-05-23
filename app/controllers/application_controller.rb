@@ -7,4 +7,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, :alert => exception.message
   end
 
+  private
+
+  def models_owned_by_user(klass)
+    user_signed_in? ? klass.where(user: current_user) : [] 
+  end
+
 end

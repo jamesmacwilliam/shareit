@@ -1,16 +1,15 @@
+attr = DS.attr
 Shareit.Listing = DS.Model.extend
-  attr = DS.attr
-  usage: DS.belongsTo('usage')
-  geography: DS.belongsTo('geography')
-  user: DS.belongsTo('user')
-  tags: DS.hasMany('tag')
+  usage: DS.belongsTo('Shareit.Usage')
+  geography: DS.belongsTo('Shareit.Geography')
+  tags: DS.hasMany('Shareit.Tag')
+  tagInterests: DS.hasMany('Shareit.TagInterest')
 
   desc: attr('string')
   listing_start: attr('date')
   listing_end: attr('date')
-  photos: attr('array')
+  #need to convert this to an array
+  photos: attr('string')
   rate: attr('string')
   rate_type: attr('string')
   deposit: attr('string')
-  listing_id: attr('string')
-  geography_id: attr('string')

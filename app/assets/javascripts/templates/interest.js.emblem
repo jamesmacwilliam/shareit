@@ -1,0 +1,12 @@
+h1= desc
+h5= listings_count
+h6= listings.length
+h6= tags.length
+.table-responsive
+  table.table.table-hover.table-striped
+    tbody
+      each listing in listings
+        tr
+          td= listing.desc
+          td
+            blah

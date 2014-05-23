@@ -1,6 +1,7 @@
+attr = DS.attr
 Shareit.Tag = DS.Model.extend
-  attr = DS.attr
-  listings: DS.hasMany('listing')
+  listings: DS.hasMany('Shareit.Listing')
+  tagInterests: DS.hasMany('Shareit.TagInterest')
 
   name: attr('string')
   tag_id: attr('string')

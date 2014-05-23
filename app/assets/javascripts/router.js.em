@@ -1,5 +1,9 @@
 Shareit.Router.map ->
-  @route 'new_listing', {path: '/listing/new'}
-
-  @resource 'listing', {path: '/listing/:listing_id'}, ->
-    @route 'edit'
+  @resource 'interests', ->
+    @resource 'interest', {path: ':interest_id'}, ->
+      @route 'edit'
+      @route 'show'
+  @resource 'listings', ->
+    @route 'new'
+    @resource 'listing', {path: ':listing_id'}, ->
+      @route 'edit'
